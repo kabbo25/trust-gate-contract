@@ -14,7 +14,7 @@
 
     <groupId>com.example.trustgate</groupId>
     <artifactId>trustgate-contract</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>trustgate-contract</name>
@@ -39,7 +39,7 @@
             <artifactId>spring-security-core</artifactId>
         </dependency>
 
-        <!-- Lombok for reducing boilerplate code -->
+        <!-- Lombok for reducing boilerplate -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -55,7 +55,13 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
-                   <skip>true</skip>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

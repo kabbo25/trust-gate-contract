@@ -5,12 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Standard TrustGate User DTO Contract
@@ -18,17 +16,18 @@ import java.util.stream.Collectors;
  * This DTO defines the contract that all user provider implementations must follow
  * when providing user authentication data to the TrustGate authorization server.
  *
- * This contract ensures consistency and standardization across different user
- * authentication backends while maintaining the TrustGate branding and architecture.
+ * This is a framework-agnostic DTO with no Spring dependencies, allowing implementations
+ * to be used across different authentication frameworks and platforms.
  *
- * Implements UserDetails directly to eliminate the need for conversion between DTOs.
+ * The authorization server is responsible for adapting this DTO to the specific
+ * authentication framework requirements (e.g., Spring Security's UserDetails).
  */
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrustGateUserDto implements UserDetails {
+public class TrustGateUserDto {
 
     /**
      * The unique username for authentication
@@ -62,45 +61,16 @@ public class TrustGateUserDto implements UserDetails {
 
     /**
      * Collection of authority strings granted to the user
+     * (e.g., "ROLE_USER", "ROLE_ADMIN")
      */
     private Collection<String> authorities;
 
-    // UserDetails interface implementation
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return encodedPassword;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+    /**
+     * Optional custom claims to be included in the JWT access token.
+     * Providers can populate this map with domain-specific data (e.g., user roles,
+     * profile information) that will be carried through to the JWT.
+     * Defaults to an empty map if not set.
+     */
+    @Builder.Default
+    private Map<String, Object> customClaims = Collections.emptyMap();
 }

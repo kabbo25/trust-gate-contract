@@ -1,9 +1,9 @@
-package com.example.trustgate.contract.service;
+package io.github.kabbo25.trustgate.contract.service;
 
-import com.example.trustgate.contract.dto.TrustGateRoleOption;
-import com.example.trustgate.contract.dto.TrustGateUserDto;
-import com.example.trustgate.contract.exception.TrustGateAuthenticationException;
-import com.example.trustgate.contract.security.TrustGatePasswordEncoder;
+import io.github.kabbo25.trustgate.contract.dto.TrustGateRoleOption;
+import io.github.kabbo25.trustgate.contract.dto.TrustGateUserDto;
+import io.github.kabbo25.trustgate.contract.exception.TrustGateAuthenticationException;
+import io.github.kabbo25.trustgate.contract.security.TrustGatePasswordEncoder;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,8 +62,7 @@ public interface TrustGateUserProviderService {
      *
      * <p>Called by the authorization server <strong>after</strong> the user's password has been
      * verified successfully but <strong>before</strong> the authentication result is finalized.
-     * Implementations can throw a {@link TrustGateAuthenticationException} (or its subclass
-     * {@link com.example.trustgate.contract.exception.UserAccountException}) to reject the
+     * Implementations can throw a {@link TrustGateAuthenticationException} to reject the
      * login with a domain-specific error code that the login page can display.</p>
      *
      * <p>Typical checks include user account status (inactive, terminated), role existence,

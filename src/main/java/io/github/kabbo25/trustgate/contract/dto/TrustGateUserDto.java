@@ -1,4 +1,4 @@
-package com.example.trustgate.contract.dto;
+package io.github.kabbo25.trustgate.contract.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

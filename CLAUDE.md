@@ -6,10 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a contract module for the TrustGate Authorization Server. It defines standard interfaces and DTOs that client implementations must follow when integrating with the TrustGate authorization server.
 
+**Maven Coordinates:** `io.github.kabbo25:trustgate-contract`
+**Published to:** Maven Central via Central Portal
+
 **Key Architecture Points:**
 - This is a contract-only library (no implementations)
 - Provides `TrustGateUserProviderService` interface that clients must implement
-- Defines `TrustGateUserDto` which directly implements Spring Security's `UserDetails` interface
+- Defines `TrustGateUserDto` as a framework-agnostic user DTO
 - Designed for separation between authorization server contracts and client implementations
 
 ## Build Commands
@@ -23,29 +26,35 @@ mvn clean package
 
 # Install to local Maven repository
 mvn clean install
-```
 
-Note: The maven-compiler-plugin has `<skip>true</skip>` configured, so compilation is skipped by default.
+# Deploy to Maven Central (requires GPG key + ~/.m2/settings.xml credentials)
+mvn clean deploy
+```
 
 ## Project Structure
 
-- `src/main/java/com/example/trustgate/contract/dto/` - Standard DTOs for TrustGate
-  - `TrustGateUserDto.java` - User contract implementing Spring Security UserDetails
-- `src/main/java/com/example/trustgate/contract/service/` - Service interfaces
-  - `TrustGateUserProviderService.java` - Main contract interface for user provider implementations
+- `src/main/java/io/github/kabbo25/trustgate/contract/dto/` - Standard DTOs
+  - `TrustGateUserDto.java` - User contract DTO
+  - `TrustGateRoleOption.java` - Multi-role selection DTO
+- `src/main/java/io/github/kabbo25/trustgate/contract/exception/` - Exceptions
+  - `TrustGateAuthenticationException.java` - Post-auth validation exception
+- `src/main/java/io/github/kabbo25/trustgate/contract/security/` - Security contracts
+  - `TrustGatePasswordEncoder.java` - Custom password encoder interface
+- `src/main/java/io/github/kabbo25/trustgate/contract/service/` - Service interfaces
+  - `TrustGateUserProviderService.java` - Main contract interface
+- `src/main/java/io/github/kabbo25/trustgate/contract/view/` - View contracts
+  - `TrustGateViewProvider.java` - Custom template provider interface
 
 ## Technology Stack
 
 - Java 21
-- Spring Boot 3.4.4
-- Spring Security Core (for UserDetails interface)
-- Lombok (for reducing boilerplate)
-- Maven
+- Lombok (only dependency)
+- Maven with Central Publishing Plugin
 
 ## Contract Implementation Guidelines
 
 When client systems implement `TrustGateUserProviderService`:
-- Must return `TrustGateUserDto` populated with all required UserDetails fields
+- Must return `TrustGateUserDto` populated with all required fields
 - The `findUserByUsername` method returns `Optional<TrustGateUserDto>`
 - Authorities should be provided as a collection of String values
 - All account status flags (enabled, accountNonExpired, accountNonLocked, credentialsNonExpired) must be set appropriately

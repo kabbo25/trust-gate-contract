@@ -1,4 +1,4 @@
-package com.example.trustgate.contract.view;
+package io.github.kabbo25.trustgate.contract.view;
 
 import java.util.Collections;
 import java.util.Set;

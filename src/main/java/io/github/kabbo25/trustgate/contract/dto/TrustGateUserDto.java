@@ -65,12 +65,4 @@ public class TrustGateUserDto {
      */
     private Collection<String> authorities;
 
-    /**
-     * Optional custom claims to be included in the JWT access token.
-     * Providers can populate this map with domain-specific data (e.g., user roles,
-     * profile information) that will be carried through to the JWT.
-     * Defaults to an empty map if not set.
-     */
-    @Builder.Default
-    private Map<String, Object> customClaims = Collections.emptyMap();
 }

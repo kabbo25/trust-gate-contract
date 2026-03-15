@@ -5,9 +5,7 @@ import io.github.kabbo25.trustgate.contract.dto.TrustGateUserDto;
 import io.github.kabbo25.trustgate.contract.exception.TrustGateAuthenticationException;
 import io.github.kabbo25.trustgate.contract.security.TrustGatePasswordEncoder;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * TrustGate User Provider Service Contract
@@ -197,5 +195,23 @@ public interface TrustGateUserProviderService {
     default List<TrustGateRoleOption> getAvailableRoles(String username) {
         return Collections.emptyList();
     }
+    /**
+     * Build custom JWT claims for the authenticated user.
+     *
+     * <p>Called by the authorization server at token-issuance time, <strong>after</strong>
+     * all pipeline steps (validation, MFA, role selection) have completed.
+     * The returned map is injected into the JWT access token.</p>
+     *
+     * <p>Providers should override this to build domain-specific claims.
+     * The default returns an empty map for backward compatibility — existing
+     * providers that populate {@link io.github.kabbo25.trustgate.contract.dto.TrustGateUserDto#getCustomClaims()}
+     * in {@link #findUserByUsername(String)} are unaffected.</p>
+     *
+     * @param username the authenticated username
+     * @return custom claims map, or empty map if no custom claims needed
+     */
 
+     default Map<String, Object> buildCustomClaims(String username){
+         return Collections.emptyMap();
+     }
 }

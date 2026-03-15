@@ -91,12 +91,5 @@ public class TrustGateRoleOption implements Serializable {
     @Builder.Default
     private List<String> tagsLocal = Collections.emptyList();
 
-    /**
-     * Opaque claim data for JWT embedding.
-     * When this role is selected, this entire map replaces the default
-     * {@code userRole} value inside the {@code user} custom claim.
-     * The SSO server never reads or interprets this data.
-     */
-    @Builder.Default
-    private Map<String, Object> claims = Collections.emptyMap();
+
 }

@@ -7,7 +7,7 @@
 
     <groupId>io.github.kabbo25</groupId>
     <artifactId>trustgate-contract</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>trustgate-contract</name>

@@ -118,6 +118,25 @@ public interface TrustGateViewProvider {
     }
 
     /**
+     * Custom application access confirmation page template path, or null to use the default.
+     *
+     * Rendered when a logged-in user from one application is requested to grant access
+     * to the same user session from a new application. Route: /oauth2/client-confirmation
+     *
+     * Model contract:
+     * - ${existingClient}       : String (name of the application that already has access)
+     * - ${newClient}            : String (name of the application requesting access)
+     * - ${existingClientCount}  : int (number of existing application clients)
+     *
+     * Required forms:
+     * 1. Allow:  POST th:action="@{/oauth2/client-confirmation/continue}"
+     * 2. Cancel: POST th:action="@{/oauth2/client-confirmation/cancel}"
+     */
+    default String getApplicationAccessConfirmationTemplateName() {
+        return null;
+    }
+
+    /**
      * Base path prefix for client static assets (CSS, JS, images) on the classpath.
      * If non-null, SSO registers a resource handler: /{prefix}/** → classpath:/static/{prefix}/
      *

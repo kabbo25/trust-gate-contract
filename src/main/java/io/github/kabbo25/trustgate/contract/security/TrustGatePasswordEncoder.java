@@ -1,11 +1,11 @@
-package com.example.trustgate.contract.security;
+package io.github.kabbo25.trustgate.contract.security;
 
 /**
  * Framework-agnostic password encoder contract for TrustGate providers.
  *
  * Providers that use a non-standard password hashing scheme (e.g., PBKDF2, Argon2)
  * should implement this interface and return it from
- * {@link com.example.trustgate.contract.service.TrustGateUserProviderService#getPasswordEncoder()}.
+ * {@link io.github.kabbo25.trustgate.contract.service.TrustGateUserProviderService#getPasswordEncoder()}.
  *
  * When no custom encoder is supplied, the auth server defaults to BCrypt.
  */

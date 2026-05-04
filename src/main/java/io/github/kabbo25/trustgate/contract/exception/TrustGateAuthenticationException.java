@@ -1,11 +1,11 @@
-package com.example.trustgate.contract.exception;
+package io.github.kabbo25.trustgate.contract.exception;
 
 import java.util.Map;
 
 /**
  * Framework-agnostic base exception for post-authentication validation failures.
  *
- * Thrown by {@link com.example.trustgate.contract.service.TrustGateUserProviderService#validateAfterAuthentication}
+ * Thrown by {@link io.github.kabbo25.trustgate.contract.service.TrustGateUserProviderService#validateAfterAuthentication}
  * when a domain-specific check fails after password verification (e.g., account inactive,
  * school not active, no roles).
  *
